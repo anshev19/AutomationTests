@@ -14,8 +14,8 @@ namespace AutoTestsProject.Tests
         [Test]
         public void Login()
         {
-            OpenAdminPortal();
-            var adminPortalPage = new AdminPortalPage(Driver);
+            var adminPortalPage = new AdminPortalPage();
+            adminPortalPage.Invoke();
             adminPortalPage.Login();
         }
     }

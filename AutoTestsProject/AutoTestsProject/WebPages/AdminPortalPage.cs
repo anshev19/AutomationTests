@@ -5,27 +5,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 
 namespace AutoTestsProject.WebPages
 {
     class AdminPortalPage : BasePage
     {
-        private readonly IWebDriver _driver;
+        [FindsBy(How = How.XPath, Using = @"//input[@name='username']")]
+        protected IWebElement UsernameInp { get; set; }
 
-        public AdminPortalPage(IWebDriver driver)
+        [FindsBy(How = How.XPath, Using = @"//input[@name='password']")]
+        protected IWebElement PasswordInp { get; set; }
+
+        [FindsBy(How = How.XPath, Using = @"//button[@name='login']")]
+        protected IWebElement LoginBtn { get; set; }
+
+        public void Invoke()
         {
-            _driver = driver;
+            Driver.Navigate().GoToUrl(ConfigurationManager.AppSettings["AdminPortalUrl"]);
         }
 
         public void Login()
         {
-            var username = _driver.FindElement(By.XPath("//input[@name='username']"));
-            var password = _driver.FindElement(By.XPath("//input[@name='password']"));
-            var loginBtn = _driver.FindElement(By.XPath("//button[@name='login']"));
-
-            username.SendKeys(ConfigurationManager.AppSettings["AdminName"]);
-            password.SendKeys(ConfigurationManager.AppSettings["AdminPswd"]);
-            loginBtn.Click();
+            UsernameInp.SendKeys(ConfigurationManager.AppSettings["AdminName"]);
+            PasswordInp.SendKeys(ConfigurationManager.AppSettings["AdminPswd"]);
+            LoginBtn.Click();
         }
     }
 }

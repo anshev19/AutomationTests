@@ -8,7 +8,7 @@ namespace AutoTestsProject.Tests
         [Test]
         public void Open()
         {
-            OpenPortal();
+            
         }
     }
 }
